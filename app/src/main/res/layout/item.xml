@@ -28,7 +28,7 @@
             <TextView
                     android:text="name"
                     android:textSize="14dp"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/green"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/tvName"/>
             <TextView

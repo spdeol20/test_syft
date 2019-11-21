@@ -1,22 +1,17 @@
 package com.android.adapter
 
-import android.content.Context
-import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
+import android.app.Activity
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.android.models.DataModel
+import com.android.models.DataModelNew
 import com.android.test.R
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item.view.*
 
-class DataAdapter(val con: Context, val data: List<DataModel>?) : RecyclerView.Adapter<DataAdapter.myHolder>() {
+class DataAdapter(val con: Activity, val data: ArrayList<DataModelNew>?) : RecyclerView.Adapter<DataAdapter.myHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myHolder {
         return myHolder(LayoutInflater.from(con).inflate(R.layout.item,parent,false))
     }
@@ -32,24 +27,13 @@ class DataAdapter(val con: Context, val data: List<DataModel>?) : RecyclerView.A
             .centerCrop()
             .into(holder.itemView.imgAvat);
 
-//        holder.itemView.setOnClickListener(object :View.OnClickListener{
-//            override fun onClick(view: View?) {
-////                Toast.makeText(con,data?.get(position)?.name,Toast.LENGTH_SHORT);
-//            }
-//
-//        })
-        holder.itemView.setOnTouchListener { view, motionEvent ->
-            when (motionEvent.action){
-                MotionEvent.ACTION_DOWN -> {
-                Toast.makeText(con,data?.get(position)?.name,Toast.LENGTH_SHORT).show();
-                }
-                MotionEvent.ACTION_UP -> {
-                }
-
-
-                else -> {}
+        holder.itemView.setOnClickListener(object :View.OnClickListener{
+            override fun onClick(view: View?) {
+                Toast.makeText(con,data?.get(position)?.name,Toast.LENGTH_SHORT);
             }
-        return@setOnTouchListener true}
+
+        })
+
 
     }
 
