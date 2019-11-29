@@ -37,7 +37,7 @@ class ListFragment : Fragment(), View.OnClickListener {
     private lateinit var layoutManage: RecyclerView.LayoutManager;
     var isload = false;
     var page: String="";
-      var map:HashMap<String,List<Int>> = HashMap()
+      var map:LinkedHashMap<String,List<Int>> = LinkedHashMap()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -186,6 +186,7 @@ class ListFragment : Fragment(), View.OnClickListener {
         builder.setSingleChoiceItems(arrayAdapter, seletedFilterPos
         ) { dialog, pos ->
             seletedFilterPos = pos;
+              filterList = DataModelNew(false, ArrayList(),0)
             setFilterData(nameLang)
             dialog.dismiss()
         }
@@ -193,15 +194,23 @@ class ListFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setFilterData(nameLang: Array<String>) {
-        var itemPresentInMain = map.get(nameLang.get(seletedFilterPos))
-        for (j in 0..itemPresentInMain!!.size) {
+        if (seletedFilterPos>0) {
+            var itemPresentInMain = map.get(nameLang.get(seletedFilterPos))
+            for (j in 0..itemPresentInMain!!.size) {
             if (!(filterList.items)!!.contains(data.items!!.get(j))) {
                 (filterList.items)!!.add(data.items!!.get(j))
             }
         }
-        adapter = DataAdapter(activity!!, filterList)
-        rvList.adapter = adapter
-        txtCount.text = getString(R.string.total_count) +" "+filterList!!.items!!.size
+            adapter = DataAdapter(activity!!, filterList)
+            rvList.adapter = adapter
+            txtCount.text = getString(R.string.total_count) +" "+filterList!!.items!!.size
+        }
+        else{
+
+            adapter = DataAdapter(activity!!, data)
+            rvList.adapter = adapter
+            txtCount.text = getString(R.string.total_count) +" "+data!!.items!!.size
+        }
 
     }
 
