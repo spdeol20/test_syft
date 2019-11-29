@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
- class Retro{
+   class Retro{
 companion object {
     val clientR = OkHttpClient().newBuilder()
         .addInterceptor(provideCacheInterceptor())
@@ -20,13 +20,14 @@ companion object {
         .build()
 
     val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.github.com")
+        .baseUrl(" https://api.github.com")
         .client(clientR)
         .addConverterFactory(GsonConverterFactory.create()).build()
 
     val calApi = retrofit.create(Apis::class.java)
 
     private val CACHE_CONTROL = "Cache-Control"//
+
     private fun provideCacheInterceptor(): Interceptor {
         return Interceptor { chain ->
             val response = chain.proceed(chain.request())
